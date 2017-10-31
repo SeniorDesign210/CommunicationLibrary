@@ -7,8 +7,13 @@
 #ifndef Comm_h
 #define Comm_h
 
-// include types & constants of Wiring core API
-#include "WConstants.h"
+#if defined(ARDUINO) && ARDUINO >= 100
+  #include "Arduino.h"
+#else
+  #include "WProgram.h"
+  #include "pins_arduino.h"
+#endif
+
 #include "SoftwareSerial.h"
 
 // library interface description
@@ -16,10 +21,12 @@ class Comm
 {
   // user-accessible "public" interface
   public:
-    Comm(void);
+    Comm(int, int);
     void sendIMU(float, float, float,
                  float, float, float,
                  float, float, float);
+    void sendRR(float);
+    void sendHR(float);
 
   // library-accessible "private" interface
   private:
