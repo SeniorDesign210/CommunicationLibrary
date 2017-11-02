@@ -9,12 +9,12 @@ Arduino/lib/targets/libraries folder.
 
 When installed, this library should look like:
 
-Arduino/lib/targets/libraries/Test              (this library's folder)
-Arduino/lib/targets/libraries/Test/Test.cpp     (the library implementation file)
-Arduino/lib/targets/libraries/Test/Test.h       (the library description file)
-Arduino/lib/targets/libraries/Test/keywords.txt (the syntax coloring file)
-Arduino/lib/targets/libraries/Test/examples     (the examples in the "open" menu)
-Arduino/lib/targets/libraries/Test/readme.txt   (this file)
+Arduino/lib/targets/libraries/Comm (this library's folder)
+Arduino/lib/targets/libraries/Comm/Comm.cpp     (the library implementation file)
+Arduino/lib/targets/libraries/Comm/Comm.h       (the library description file)
+Arduino/lib/targets/libraries/Comm/keywords.txt (the syntax coloring file)
+Arduino/lib/targets/libraries/Comm/examples     (the examples in the "open" menu)
+Arduino/lib/targets/libraries/Comm/readme.txt   (this file)
 
 Building
 --------------------------------------------------------------------------------
