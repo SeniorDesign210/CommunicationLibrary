@@ -5,10 +5,10 @@
 
 // include core wiring library
 #if defined(ARDUINO) && ARDUINO >= 100
-  #include "Arduino.h"
+#include "Arduino.h"
 #else
-  #include "WProgram.h"
-  #include "pins_arduino.h"
+#include "WProgram.h"
+#include "pins_arduino.h"
 #endif
 
 // include this library's description file
@@ -18,7 +18,7 @@
 // Constructor /////////////////////////////////////////////////////////////////
 // Function that handles the creation and setup of instances
 
-Comm::Comm(int rec, int trans) : XBee(2,3)
+Comm::Comm(int rec, int trans) : XBee(2, 3)
 {
   // initialize this instance's variables
   pinMode(13, OUTPUT);
@@ -37,19 +37,19 @@ void Comm::sendIMU(float gx, float gy, float gz,
   //use 'I' as the first byte. (0x49 or 73)
   byte payload[37];
   payload[0] = byte('I');
-  payload[1] = gx;
-  payload[5] = gy;
-  payload[9] = gz;
+  memcpy(&payload[1], &gx, sizeof gx);
+  memcpy(&payload[5], &gy, sizeof gy);
+  memcpy(&payload[9], &gz, sizeof gz);
 
-  payload[13]= ax;
-  payload[17]= ay;
-  payload[21]= az;
+  memcpy(&payload[13], &ax, sizeof ax);
+  memcpy(&payload[17], &ay, sizeof ay);
+  memcpy(&payload[21], &az, sizeof az);
 
-  payload[25]= mx;
-  payload[29]= my;
-  payload[33]= mz;
+  memcpy(&payload[25], &mx, sizeof mx);
+  memcpy(&payload[29], &my, sizeof my);
+  memcpy(&payload[33], &mz, sizeof mz);
 
-  XBee.write(payload,37);
+  XBee.write(payload, 37);
   // it can also call private functions of this library
 }
 void Comm::sendRR(float r)
@@ -64,12 +64,21 @@ void Comm::sendHR(float r)
 {
   //format and send a packet with the HR data in it,
   //use 'H' as the first byte. (0x48 or 72)
-  
+  byte payload[5];
+  payload[0] = byte('H');
+  // payload[1] = r;
+  memcpy(&payload[1], &r, sizeof r);
 
+  XBee.write(payload, 5);
+}
+void Comm::sendERR(int err)
+{
+  //send an error message;
+  byte payload[3];
+  payload[0] = byte('E');
+  memcpy(&payload[1], &err, sizeof err);
 
-
-  // it can also call private functions of this library
-  doSomethingSecret();
+  XBee.write(payload, 3);
 }
 
 // Private Methods /////////////////////////////////////////////////////////////
@@ -82,4 +91,3 @@ void Comm::doSomethingSecret(void)
   digitalWrite(13, LOW);
   delay(200);
 }
-
